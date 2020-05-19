@@ -1,0 +1,195 @@
+//Libby Snedaker
+//May 14, 2020
+//Snedaker_Drone
+//Simulation using button, drone movement in x,y,z location
+
+import java.util.Scanner;
+public class Snedaker_Drone {
+	
+	//variables
+	static int menuOption = 0;
+			
+	static int x = 0;
+	static int y = 0;
+	static int z = 0;
+					
+	static String droneOrientation = "North";
+	static int orientationCounter = 0;
+	
+	//main method
+	public static void main(String[] args) {
+		
+		//scanner input to get info from user
+		Scanner input = new Scanner(System.in);
+		
+		//welcome message
+		System.out.println("Welcome to the drone navigation simulator. Starting out, the drone is at [x-position] = " + x + "," + " [y-position] = " + y + "," +
+				" [z-position] = " + z + "," + " and its orientation = " + droneOrientation);
+		
+		//menu
+		while (menuOption != 8) {
+			System.out.println("Which direction would you like to move the drone?");
+			System.out.println("1 - Move Up");
+			System.out.println("2 - Move Down");
+			System.out.println("3 - Move Forward");
+			System.out.println("4 - Move Backward");
+			System.out.println("5 - Turn Left");
+			System.out.println("6 - Turn Right");
+			System.out.println("7 - Display Position");
+			System.out.println("8 - Exit Navigation");
+				
+			//get menu option from user
+			menuOption = input.nextInt();
+			input.nextLine();
+					
+			//move up
+			if (menuOption == 1) {
+				moveUp();
+			}		
+		
+			//move down
+			if (menuOption == 2) {
+				moveDown();
+			}
+		
+			//move forward
+			if (menuOption == 3) {
+				moveForward();
+			}
+		
+			//move backward
+			if (menuOption == 4) {
+				moveBackward();
+			}
+		
+			//turn left
+			if (menuOption == 5) {
+				turnLeft();
+			}
+		
+			//turn right
+			if (menuOption == 6) {
+				turnRight();
+			}
+			
+			//orientation method
+			orientationMethod();
+			
+			//display position
+			if (menuOption == 7) {
+				displayPos();
+			}
+		
+			//exit navigation
+			if (menuOption == 8) {
+				endProgram();
+			}
+		}
+	}
+	
+	//move up method
+	public static void moveUp() {
+		System.out.println("You have moved up.");
+		y++;
+	}
+	
+	//move down method
+	public static void moveDown() {
+		System.out.println("You have moved down.");
+		y--;
+	}
+	
+	//move forward method
+	public static void moveForward() {
+		System.out.println("You have moved forward.");
+		//first check orientation, then move accordingly
+		if (orientationCounter%4 == 0) {
+			droneOrientation = "North";
+			z++;
+		} else if (orientationCounter%4 == 1 || orientationCounter%4 == -3) {
+			droneOrientation = "East";
+			x++;
+		} else if (orientationCounter%4 == 2 || orientationCounter%4 == -2) {
+			droneOrientation = "South";
+			z--;
+		} else if (orientationCounter%4 == 3 || orientationCounter%4 == -1) {
+			droneOrientation = "West";
+			x--;
+		}
+	}
+	
+	//move backward method
+	public static void moveBackward() {
+		System.out.println("You have moved backward.");
+		//first check orientation, then move accordingly
+		if (orientationCounter%4 == 0) {
+			droneOrientation = "North";
+			z--;
+		} else if (orientationCounter%4 == 1 || orientationCounter%4 == -3) {
+			droneOrientation = "East";
+			x--;
+		} else if (orientationCounter%4 == 2 || orientationCounter%4 == -2) {
+			droneOrientation = "South";
+			z++;
+		} else if (orientationCounter%4 == 3 || orientationCounter%4 == -1) {
+			droneOrientation = "West";
+			x++;
+		}
+	}
+	
+	//turn left method
+	public static void turnLeft() {
+		System.out.println("You have turned left.");
+		//first check orientation, then turn accordingly
+		orientationCounter--;
+		if (orientationCounter%4 == 0) {
+			droneOrientation = "North";
+		} else if (orientationCounter%4 == 1 || orientationCounter%4 == -3) {
+			droneOrientation = "East";
+		} else if (orientationCounter%4 == 2 || orientationCounter%4 == -2) {
+			droneOrientation = "South";
+		} else if (orientationCounter%4 == 3 || orientationCounter%4 == -1) {
+			droneOrientation = "West";
+		}
+	}
+	
+	//turn right method
+	public static void turnRight() {
+		System.out.println("You have turned right.");
+		//first check orientation, then turn accordingly
+		orientationCounter++;
+		if (orientationCounter%4 == 0) {
+			droneOrientation = "North";
+		} else if (orientationCounter%4 == 1 || orientationCounter%4 == -3) {
+			droneOrientation = "East";
+		} else if (orientationCounter%4 == 2 || orientationCounter%4 == -2) {
+			droneOrientation = "South";
+		} else if (orientationCounter%4 == 3 || orientationCounter%4 == -1) {
+			droneOrientation = "West";
+		}
+	}
+	
+	//orientation calculation method
+	public static void orientationMethod() {
+		if (orientationCounter%4 == 0) {
+			droneOrientation = "North";
+		} else if (orientationCounter%4 == 1 || orientationCounter%4 == -3) {
+			droneOrientation = "East";		
+		} else if (orientationCounter%4 == 2 || orientationCounter%4 == -2) {
+			droneOrientation = "South";
+		} else if (orientationCounter%4 == 3 || orientationCounter%4 == -1) {
+			droneOrientation = "West";
+		}
+	}
+	
+	//display position method
+	public static void displayPos() {
+		System.out.println("The drone is at [x-position] = " + x + "," + " [y-position] = " + y + "," +
+		" [z-position] = " + z + "," + " and its orientation = " + droneOrientation);
+	}
+	
+	//exit program
+	public static void endProgram() {
+		System.out.println("Thank you for using the drone navigation.");
+	}
+}
